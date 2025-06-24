@@ -1,0 +1,203 @@
+/* Chat Bubble Container */
+.chat-bubble-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  overflow: visible;
+  background: none;
+  width: 80px;  /* Match bubble size */
+  height: 80px; /* Match bubble size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-bubble {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  border-radius: 50%;
+  background: transparent;
+  overflow: hidden; /* ensure GIF stays inside bubble */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  /* overflow: hidden; */
+}
+
+/* (New) Wrapper (flex container) inside chat-bubble to center its children (text and gif) */
+.chat-bubble-wrapper {
+  position: absolute;  /* Changed to absolute */
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Plasma Orb (CSS-based) */
+.plasma-orb {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 60% 40%, #0ff 0%, #a259ff 60%, #000 100%);
+  box-shadow: 0 0 16px 4px #00fff7, 0 0 32px 8px #a259ff;
+  overflow: visible;
+  z-index: 1;
+  pointer-events: none;
+}
+.plasma-core {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(0,255,255,0.8) 30%, rgba(128,0,255,0.6) 60%, rgba(255,0,255,0.4) 100%);
+  filter: blur(5px);
+  animation: rotate 10s linear infinite;
+  z-index: 2;
+}
+.plasma-glow {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  top: -10%;
+  left: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(0,255,255,0.2) 0%, rgba(128,0,255,0.1) 50%, transparent 70%);
+  filter: blur(10px);
+  animation: glow 4s ease-in-out infinite;
+  z-index: 1;
+}
+.plasma-trail {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0%, rgba(0,255,255,0.3) 25%, rgba(128,0,255,0.3) 50%, rgba(255,0,255,0.3) 75%, transparent 100%);
+  animation: trail 8s linear infinite;
+  z-index: 2;
+}
+
+/* Canvas for floating plasma blobs */
+.plasma-blobs-canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  pointer-events: none;  /* Ensure it doesn't block clicks */
+  z-index: 3;
+  background: transparent;
+  border: none;
+  overflow: visible;
+}
+
+/* Neon plasma ring canvas */
+.plasma-neon-ring-canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  pointer-events: none;  /* Ensure it doesn't block clicks */
+  z-index: 0;
+  background: transparent !important;
+  border: none !important;
+  overflow: visible;
+}
+
+/* (Updated) Centered GIF */
+.bot-gif-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+  border-radius: 50%;
+  z-index: 20;
+  box-shadow: 0 0 24px 8px #00fff7cc, 0 0 32px 12px #a259ff99;
+  pointer-events: none;  /* Ensure it doesn't block clicks */
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* (Updated) Centered animated text */
+.bubble-center-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Orbitron', 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  pointer-events: none;  /* Ensure it doesn't block clicks */
+  z-index: 15;
+  color: #00fff7;
+  text-shadow: 0 0 8px #0008ff, 0 0 16px #0008ff, 0 0 24px #0008ff;
+  opacity: 1;
+  transition: opacity 0.35s cubic-bezier(.4,0,.2,1);
+  margin: 0;
+  padding: 0;
+  line-height: 1.1;
+}
+.fade-in {
+  opacity: 1;
+}
+.fade-out {
+  opacity: 0;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
+}
+@keyframes trail {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@media (max-width: 768px) {
+  .chat-bubble-container {
+    bottom: 16px;
+    right: 16px;
+  }
+  .chat-bubble, .plasma-orb, .plasma-blobs-canvas, .bot-gif-full {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .plasma-neon-ring-canvas {
+    width: 88px;
+    height: 88px;
+    left: -16px;
+    top: -16px;
+  }
+} 

@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  /* Remove solid black background */
+  /* background-color: #000; */
+  position: relative;
+  /* Add a soft, colorful gradient for glassmorphism */
+  background: hsl(0, 12%, 94%);
+  /* background: linear-gradient(135deg, #e0e7ef 0%, #c9e7ff 50%, #f5d6ff 100%); */
+}
+
+/* Remove all other existing styles */
